@@ -5,9 +5,15 @@
 
     <GridLayout
         android:id="@+id/input_grid"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:columnCount="9"
         android:rowCount="9">
     </GridLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/input_grid"
+        android:text="OK"/>
 </RelativeLayout>

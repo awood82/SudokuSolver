@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/editText_box"
+    android:layout_width="@dimen/square_size"
+    android:layout_height="@dimen/square_size"
+    android:background="@drawable/box"
+    android:numeric="integer"
+    android:gravity="center"
+    android:singleLine="true"/>
