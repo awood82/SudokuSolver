@@ -14,7 +14,9 @@ import android.widget.EditText;
 import android.widget.GridLayout;
 
 import com.digitalwood.sudokusolver.R;
+import com.digitalwood.sudokusolver.common.Constants;
 import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
+import com.digitalwood.sudokusolver.input.model.InputModel;
 import com.digitalwood.sudokusolver.input.presenter.InputPresenter;
 
 /**
@@ -23,8 +25,6 @@ import com.digitalwood.sudokusolver.input.presenter.InputPresenter;
  */
 public class InputFragment extends Fragment implements IInputView {
 
-    public static int BLOCK_WIDTH = 3;
-    public static int TOTAL_WIDTH = BLOCK_WIDTH * BLOCK_WIDTH;
     private static int WIDTH_DP = 30;
     private static int HEIGHT_DP = 30;
     private static int BORDER_DP = 2;
@@ -44,8 +44,8 @@ public class InputFragment extends Fragment implements IInputView {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
-        //InputModel model = new InputModel();
-        InputPresenter presenter = new InputPresenter(this, null);
+        InputModel model = new InputModel();
+        InputPresenter presenter = new InputPresenter(this, model);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class InputFragment extends Fragment implements IInputView {
         View rootView = inflater.inflate(R.layout.fragment_input, container, false);
 
         inputGrid = (GridLayout) rootView.findViewById(R.id.input_grid);
-        for (int i = 0; i < TOTAL_WIDTH; i++) {
-            for (int j = 0; j < TOTAL_WIDTH; j++) {
+        for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
+            for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
                 final EditText editText = (EditText) inflater.inflate(R.layout.edittext_box, container, false);
                 editText.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -116,10 +116,10 @@ public class InputFragment extends Fragment implements IInputView {
 
     @Override
     public int[][] getInputArray() {
-        int[][] inputs = new int[TOTAL_WIDTH][TOTAL_WIDTH];
-        for (int i = 0; i < TOTAL_WIDTH; i++) {
-            for (int j = 0; j < TOTAL_WIDTH; j++) {
-                EditText editText = (EditText) inputGrid.getChildAt(i * TOTAL_WIDTH + j);
+        int[][] inputs = new int[Constants.TOTAL_WIDTH][Constants.TOTAL_WIDTH];
+        for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
+            for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
+                EditText editText = (EditText) inputGrid.getChildAt(i * Constants.TOTAL_WIDTH + j);
                 Editable number = editText.getText();
                 inputs[i][j] = number.length() > 0 ? Integer.parseInt(number.toString()) : 0;
             }

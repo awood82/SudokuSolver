@@ -9,8 +9,7 @@ import junit.framework.TestCase;
 
 import org.mockito.ArgumentCaptor;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Andrew on 11/28/2014.
@@ -18,7 +17,7 @@ import static org.mockito.Mockito.verify;
  */
 public class InputPresenterTest extends TestCase {
 
-    public void testView_WhenSolveClicked_GetsProblemFromView() {
+    public void testView_WhenSolveClicked_GetsProblemFromViewAndTriesToSolve() {
         IInputView mockView = mock(IInputView.class);
         IInputModel mockModel = mock(IInputModel.class);
         InputPresenter presenter = new InputPresenter(mockView, mockModel);
@@ -28,5 +27,6 @@ public class InputPresenterTest extends TestCase {
         arg.getValue().onClick();
 
         verify(mockView).getInputArray();
+        verify(mockModel).solveSudoku(any(int[][].class));
     }
 }

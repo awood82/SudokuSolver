@@ -5,4 +5,5 @@ package com.digitalwood.sudokusolver.input.model;
  * Copyright 2014
  */
 public interface IInputModel {
+    int[][] solveSudoku(final int[][] grid);
 }

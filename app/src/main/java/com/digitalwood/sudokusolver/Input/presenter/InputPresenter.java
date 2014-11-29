@@ -26,6 +26,7 @@ public class InputPresenter {
             @Override
             public void onClick() {
                 int[][] inputs = mView.getInputArray();
+                mModel.solveSudoku(inputs);
             }
         });
     }
