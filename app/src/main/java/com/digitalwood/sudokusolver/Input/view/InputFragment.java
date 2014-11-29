@@ -5,23 +5,23 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 
 import com.digitalwood.sudokusolver.R;
+import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
+import com.digitalwood.sudokusolver.input.presenter.InputPresenter;
 
 /**
  * Created by Andrew on 11/28/2014.
  * Copyright 2014
  */
-public class InputFragment extends Fragment {
+public class InputFragment extends Fragment implements IInputView {
 
     public static int BLOCK_WIDTH = 3;
     public static int TOTAL_WIDTH = BLOCK_WIDTH * BLOCK_WIDTH;
@@ -29,6 +29,7 @@ public class InputFragment extends Fragment {
     private static int HEIGHT_DP = 30;
     private static int BORDER_DP = 2;
     private GridLayout inputGrid;
+    private OnSolveButtonClickedListener mOnSolveButtonClickedListener;
 
     public static InputFragment newInstance() {
         InputFragment fragment = new InputFragment();
@@ -44,7 +45,7 @@ public class InputFragment extends Fragment {
         setRetainInstance(true);
 
         //InputModel model = new InputModel();
-        //InputPresenter presenter = new InputPresenter(this, model);
+        InputPresenter presenter = new InputPresenter(this, null);
     }
 
     @Override
@@ -72,6 +73,7 @@ public class InputFragment extends Fragment {
                 });
                 editText.addTextChangedListener(new TextWatcher() {
                     int s;
+
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
                     }
@@ -79,16 +81,16 @@ public class InputFragment extends Fragment {
                     @Override
                     public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
                         s = start;
-                        Log.e("s", "s = " + s);
                     }
 
                     @Override
                     public void afterTextChanged(Editable editable) {
                         if (editable.length() > 1) {
-                            if (s == 0)
+                            if (s == 0) {
                                 editable.delete(1, 2);
-                            else
+                            } else {
                                 editable.delete(0, 1);
+                            }
                         }
                     }
                 });
@@ -96,6 +98,33 @@ public class InputFragment extends Fragment {
             }
         }
 
+        Button solveButton = (Button) rootView.findViewById(R.id.button_solve);
+        solveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mOnSolveButtonClickedListener.onClick();
+            }
+        });
+
         return rootView;
+    }
+
+    @Override
+    public void whenSolveButtonClicked(OnSolveButtonClickedListener listener) {
+        mOnSolveButtonClickedListener = listener;
+    }
+
+    @Override
+    public int[][] getInputArray() {
+        int[][] inputs = new int[TOTAL_WIDTH][TOTAL_WIDTH];
+        for (int i = 0; i < TOTAL_WIDTH; i++) {
+            for (int j = 0; j < TOTAL_WIDTH; j++) {
+                EditText editText = (EditText) inputGrid.getChildAt(i * TOTAL_WIDTH + j);
+                Editable number = editText.getText();
+                inputs[i][j] = number.length() > 0 ? Integer.parseInt(number.toString()) : 0;
+            }
+        }
+
+        return inputs;
     }
 }

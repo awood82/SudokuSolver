@@ -12,8 +12,9 @@
     </GridLayout>
 
     <Button
+        android:id="@+id/button_solve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/input_grid"
-        android:text="OK"/>
+        android:text="@string/button_solve"/>
 </RelativeLayout>
