@@ -1,5 +1,7 @@
 package com.digitalwood.sudokusolver.input.presenter;
 
+import com.digitalwood.sudokusolver.R;
+import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
 import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
 import com.digitalwood.sudokusolver.input.model.IInputModel;
 import com.digitalwood.sudokusolver.input.view.IInputView;
@@ -32,6 +34,17 @@ public class InputPresenter {
     }
 
     private void addModelListeners() {
+        mModel.whenPuzzleIsSolved(new OnPuzzleSolvedListener() {
+            @Override
+            public void onSuccess(int[][] grid) {
+                mView.setSolution(grid);
+                mView.showSolution();
+            }
 
+            @Override
+            public void onFailure() {
+                mView.showMessage(R.string.message_solver_failed);
+            }
+        });
     }
 }

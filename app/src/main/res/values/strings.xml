@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
 
     <string name="button_solve">Solve</string>
+    <string name="message_solver_failed">This puzzle cannot be solved. Please double-check your inputs.</string>
 
 </resources>

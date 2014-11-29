@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.Toast;
 
 import com.digitalwood.sudokusolver.R;
 import com.digitalwood.sudokusolver.common.Constants;
@@ -28,7 +29,8 @@ public class InputFragment extends Fragment implements IInputView {
     private static int WIDTH_DP = 30;
     private static int HEIGHT_DP = 30;
     private static int BORDER_DP = 2;
-    private GridLayout inputGrid;
+    private GridLayout mInputGrid;
+    private int[][] mSolution;
     private OnSolveButtonClickedListener mOnSolveButtonClickedListener;
 
     public static InputFragment newInstance() {
@@ -52,7 +54,7 @@ public class InputFragment extends Fragment implements IInputView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_input, container, false);
 
-        inputGrid = (GridLayout) rootView.findViewById(R.id.input_grid);
+        mInputGrid = (GridLayout) rootView.findViewById(R.id.input_grid);
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
                 final EditText editText = (EditText) inflater.inflate(R.layout.edittext_box, container, false);
@@ -94,7 +96,7 @@ public class InputFragment extends Fragment implements IInputView {
                         }
                     }
                 });
-                inputGrid.addView(editText);
+                mInputGrid.addView(editText);
             }
         }
 
@@ -119,12 +121,39 @@ public class InputFragment extends Fragment implements IInputView {
         int[][] inputs = new int[Constants.TOTAL_WIDTH][Constants.TOTAL_WIDTH];
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
-                EditText editText = (EditText) inputGrid.getChildAt(i * Constants.TOTAL_WIDTH + j);
+                EditText editText = (EditText) mInputGrid.getChildAt(i * Constants.TOTAL_WIDTH + j);
                 Editable number = editText.getText();
                 inputs[i][j] = number.length() > 0 ? Integer.parseInt(number.toString()) : 0;
             }
         }
 
         return inputs;
+    }
+
+    @Override
+    public void setSolution(int[][] grid) {
+        mSolution = grid;
+    }
+
+    @Override
+    public void showSolution() {
+        int[][] inputs = getInputArray();
+        for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
+            for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
+                if (inputs[i][j] == 0) {
+                    EditText editText = (EditText) mInputGrid.getChildAt(i * Constants.TOTAL_WIDTH + j);
+                    editText.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                    editText.setText(String.valueOf(mSolution[i][j]));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void showMessage(int resId) {
+        Toast.makeText(
+                getActivity().getApplicationContext(),
+                getResources().getText(resId),
+                Toast.LENGTH_SHORT);
     }
 }

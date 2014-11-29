@@ -10,4 +10,10 @@ public interface IInputView {
     void whenSolveButtonClicked(OnSolveButtonClickedListener listener);
 
     int[][] getInputArray();
+
+    void setSolution(int[][] grid);
+
+    void showSolution();
+
+    void showMessage(int resId);
 }
