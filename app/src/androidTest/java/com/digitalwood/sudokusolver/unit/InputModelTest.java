@@ -1,5 +1,6 @@
 package com.digitalwood.sudokusolver.unit;
 
+import com.digitalwood.sudokusolver.common.Constants;
 import com.digitalwood.sudokusolver.input.model.InputModel;
 
 import junit.framework.TestCase;
@@ -9,8 +10,6 @@ import junit.framework.TestCase;
  * Copyright 2014
  */
 public class InputModelTest extends TestCase {
-
-    private static final int TOTAL_WIDTH = 9;
 
     public void testSolve_NearlyCompleteInput_SolvesCorrectly() {
         InputModel model = new InputModel();
@@ -35,14 +34,17 @@ public class InputModelTest extends TestCase {
      * @return
      */
     private int[][] getEasySolvedPuzzle() {
-        int[][] inputs = new int[TOTAL_WIDTH][TOTAL_WIDTH];
-        for (int i = 0; i < TOTAL_WIDTH; i++) {
+        int[][] inputs = new int[Constants.TOTAL_WIDTH][Constants.TOTAL_WIDTH];
+        for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             int value = i + 1;
-            for (int j = 0; j < TOTAL_WIDTH; j++) {
+            for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
                 inputs[i][j] = value;
                 value += 3;
-                if (value > TOTAL_WIDTH) {
-                    value -= TOTAL_WIDTH;
+                if ((j + 1) % Constants.BLOCK_WIDTH == 0) {
+                    value++;
+                }
+                if (value > Constants.TOTAL_WIDTH) {
+                    value -= Constants.TOTAL_WIDTH;
                 }
             }
         }
