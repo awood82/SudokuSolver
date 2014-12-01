@@ -9,6 +9,8 @@ import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
 public interface IInputView {
     void whenSolveButtonClicked(OnSolveButtonClickedListener listener);
 
+    void setInputArray(int[][] inputs);
+
     int[][] getInputArray();
 
     void setSolution(int[][] grid);

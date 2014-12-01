@@ -130,6 +130,17 @@ public class InputFragment extends Fragment implements IInputView {
         return inputs;
     }
 
+    public void setInputArray(int[][] inputs) {
+        for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
+            for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
+                EditText editText = (EditText) mInputGrid.getChildAt(i * Constants.TOTAL_WIDTH + j);
+                if (inputs[i][j] != 0) {
+                    editText.setText(String.valueOf(inputs[i][j]));
+                }
+            }
+        }
+    }
+
     @Override
     public void setSolution(int[][] grid) {
         mSolution = grid;
@@ -142,7 +153,7 @@ public class InputFragment extends Fragment implements IInputView {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
                 if (inputs[i][j] == 0) {
                     EditText editText = (EditText) mInputGrid.getChildAt(i * Constants.TOTAL_WIDTH + j);
-                    editText.setTextColor(getResources().getColor(android.R.color.holo_green_dark));
+                    editText.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
                     editText.setText(String.valueOf(mSolution[i][j]));
                 }
             }
