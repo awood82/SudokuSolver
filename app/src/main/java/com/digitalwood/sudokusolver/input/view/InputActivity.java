@@ -1,4 +1,4 @@
-package com.digitalwood.sudokusolver.inputs.view;
+package com.digitalwood.sudokusolver.input.view;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;

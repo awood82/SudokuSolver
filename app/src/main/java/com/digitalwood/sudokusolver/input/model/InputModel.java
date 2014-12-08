@@ -1,7 +1,7 @@
-package com.digitalwood.sudokusolver.inputs.model;
+package com.digitalwood.sudokusolver.input.model;
 
 import com.digitalwood.sudokusolver.common.Constants;
-import com.digitalwood.sudokusolver.inputs.handlers.OnPuzzleSolvedListener;
+import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
 
 import java.util.Arrays;
 

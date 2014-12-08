@@ -1,11 +1,11 @@
-package com.digitalwood.sudokusolver.inputs.presenter;
+package com.digitalwood.sudokusolver.input.presenter;
 
 import com.digitalwood.sudokusolver.R;
 import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
-import com.digitalwood.sudokusolver.inputs.handlers.OnPuzzleSolvedListener;
-import com.digitalwood.sudokusolver.inputs.handlers.OnSolveButtonClickedListener;
-import com.digitalwood.sudokusolver.inputs.model.IInputModel;
-import com.digitalwood.sudokusolver.inputs.view.IInputView;
+import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
+import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
+import com.digitalwood.sudokusolver.input.model.IInputModel;
+import com.digitalwood.sudokusolver.input.view.IInputView;
 
 /**
  * Created by Andrew on 11/28/2014.

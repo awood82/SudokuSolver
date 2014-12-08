@@ -1,4 +1,4 @@
-package com.digitalwood.sudokusolver.inputs.view;
+package com.digitalwood.sudokusolver.input.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,9 +19,9 @@ import com.digitalwood.sudokusolver.R;
 import com.digitalwood.sudokusolver.common.Constants;
 import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
 import com.digitalwood.sudokusolver.hint.view.HintActivity;
-import com.digitalwood.sudokusolver.inputs.handlers.OnSolveButtonClickedListener;
-import com.digitalwood.sudokusolver.inputs.model.InputModel;
-import com.digitalwood.sudokusolver.inputs.presenter.InputPresenter;
+import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
+import com.digitalwood.sudokusolver.input.model.InputModel;
+import com.digitalwood.sudokusolver.input.presenter.InputPresenter;
 
 /**
  * Created by Andrew on 11/28/2014.
