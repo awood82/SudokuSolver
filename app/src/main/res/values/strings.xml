@@ -5,7 +5,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string name="button_solve">Solve</string>
+    <string name="input_button_solve">Solve</string>
     <string name="message_solver_failed">This puzzle cannot be solved. Please double-check your inputs.</string>
+
+    <string name="hint_title">Click squares for hints</string>
+    <string name="hint_button_edit">Edit</string>
+    <string name="hint_button_reveal">Reveal</string>
+    <string name="hint_button_hide">Hide</string>
 
 </resources>

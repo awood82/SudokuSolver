@@ -9,5 +9,5 @@ import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
 public interface IInputModel {
     void whenPuzzleIsSolved(OnPuzzleSolvedListener listener);
 
-    int[][] solveSudoku(final int[][] grid);
+    int[] solveSudoku(final int[] grid);
 }

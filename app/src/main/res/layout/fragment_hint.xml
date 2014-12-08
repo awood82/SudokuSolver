@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <GridLayout
+        android:id="@+id/hint_grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="9"
+        android:rowCount="9">
+    </GridLayout>
+
+    <Button
+        android:id="@+id/hint_button_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hint_grid"
+        android:text="@string/hint_button_edit"/>
+
+    <Button
+        android:id="@+id/hint_button_reveal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hint_grid"
+        android:layout_toRightOf="@id/hint_button_edit"
+        android:text="@string/hint_button_reveal"/>
+
+    <Button
+        android:id="@+id/hint_button_hide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/hint_grid"
+        android:layout_toRightOf="@id/hint_button_edit"
+        android:text="@string/hint_button_hide"
+        android:visibility="invisible"/>
+</RelativeLayout>

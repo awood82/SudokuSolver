@@ -1,5 +1,6 @@
 package com.digitalwood.sudokusolver.input.view;
 
+import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
 import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
 
 /**
@@ -7,15 +8,19 @@ import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
  * Copyright 2014
  */
 public interface IInputView {
+    void whenActivityCreated(OnActivityCreatedListener listener);
+
     void whenSolveButtonClicked(OnSolveButtonClickedListener listener);
 
-    void setInputArray(int[][] inputs);
+    void setInputArray(int[] inputs);
 
-    int[][] getInputArray();
+    int[] getInputArray();
 
-    void setSolution(int[][] grid);
+    void setSolution(int[] grid);
 
     void showSolution();
 
     void showMessage(int resId);
+
+    void goToHintScreen();
 }

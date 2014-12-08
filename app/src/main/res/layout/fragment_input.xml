@@ -16,5 +16,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/input_grid"
-        android:text="@string/button_solve"/>
+        android:text="@string/input_button_solve"/>
 </RelativeLayout>

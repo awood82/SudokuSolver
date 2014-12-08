@@ -1,5 +1,6 @@
 package com.digitalwood.sudokusolver.input.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import com.digitalwood.sudokusolver.R;
 import com.digitalwood.sudokusolver.common.Constants;
+import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
+import com.digitalwood.sudokusolver.hint.view.HintActivity;
 import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
 import com.digitalwood.sudokusolver.input.model.InputModel;
 import com.digitalwood.sudokusolver.input.presenter.InputPresenter;
@@ -30,7 +33,8 @@ public class InputFragment extends Fragment implements IInputView {
     private static int HEIGHT_DP = 30;
     private static int BORDER_DP = 2;
     private GridLayout mInputGrid;
-    private int[][] mSolution;
+    private int[] mSolution;
+    private OnActivityCreatedListener mOnActivityCreatedListener;
     private OnSolveButtonClickedListener mOnSolveButtonClickedListener;
 
     public static InputFragment newInstance() {
@@ -112,49 +116,65 @@ public class InputFragment extends Fragment implements IInputView {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (mOnActivityCreatedListener != null) {
+            mOnActivityCreatedListener.onActivityCreated();
+        }
+    }
+
+    @Override
+    public void whenActivityCreated(OnActivityCreatedListener listener) {
+        mOnActivityCreatedListener = listener;
+    }
+
+    @Override
     public void whenSolveButtonClicked(OnSolveButtonClickedListener listener) {
         mOnSolveButtonClickedListener = listener;
     }
 
     @Override
-    public int[][] getInputArray() {
-        int[][] inputs = new int[Constants.TOTAL_WIDTH][Constants.TOTAL_WIDTH];
+    public int[] getInputArray() {
+        int[] inputs = new int[Constants.TOTAL_WIDTH * Constants.TOTAL_WIDTH];
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
-                EditText editText = (EditText) mInputGrid.getChildAt(i * Constants.TOTAL_WIDTH + j);
+                final int index = i * Constants.TOTAL_WIDTH + j;
+                final EditText editText = (EditText) mInputGrid.getChildAt(index);
                 Editable number = editText.getText();
-                inputs[i][j] = number.length() > 0 ? Integer.parseInt(number.toString()) : 0;
+                inputs[index] = number.length() > 0 ? Integer.parseInt(number.toString()) : 0;
             }
         }
 
         return inputs;
     }
 
-    public void setInputArray(int[][] inputs) {
+    public void setInputArray(int[] inputs) {
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
-                EditText editText = (EditText) mInputGrid.getChildAt(i * Constants.TOTAL_WIDTH + j);
-                if (inputs[i][j] != 0) {
-                    editText.setText(String.valueOf(inputs[i][j]));
+                final int index = i * Constants.TOTAL_WIDTH + j;
+                final EditText editText = (EditText) mInputGrid.getChildAt(index);
+                if (inputs[index] != 0) {
+                    editText.setText(String.valueOf(inputs[index]));
                 }
             }
         }
     }
 
     @Override
-    public void setSolution(int[][] grid) {
+    public void setSolution(int[] grid) {
         mSolution = grid;
     }
 
     @Override
     public void showSolution() {
-        int[][] inputs = getInputArray();
+        int[] inputs = getInputArray();
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
-                if (inputs[i][j] == 0) {
-                    EditText editText = (EditText) mInputGrid.getChildAt(i * Constants.TOTAL_WIDTH + j);
-                    editText.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-                    editText.setText(String.valueOf(mSolution[i][j]));
+                final int index = i * Constants.TOTAL_WIDTH + j;
+                if (inputs[index] == 0) {
+                    EditText editText = (EditText) mInputGrid.getChildAt(index);
+                    editText.setTextColor(getResources().getColor(R.color.solution));
+                    editText.setText(String.valueOf(mSolution[index]));
                 }
             }
         }
@@ -166,5 +186,13 @@ public class InputFragment extends Fragment implements IInputView {
                 getActivity().getApplicationContext(),
                 getResources().getText(resId),
                 Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void goToHintScreen() {
+        Intent intent = new Intent(getActivity(), HintActivity.class);
+        intent.putExtra(HintActivity.EXTRA_INPUTS, getInputArray());
+        intent.putExtra(HintActivity.EXTRA_SOLUTION, mSolution);
+        startActivity(intent);
     }
 }

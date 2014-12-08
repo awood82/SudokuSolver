@@ -1,9 +1,9 @@
 package com.digitalwood.sudokusolver.input.model;
 
-import android.util.Log;
-
 import com.digitalwood.sudokusolver.common.Constants;
 import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
+
+import java.util.Arrays;
 
 /**
  * Created by Andrew on 11/28/2014.
@@ -18,8 +18,8 @@ public class InputModel implements IInputModel {
     }
 
     @Override
-    public int[][] solveSudoku(final int[][] grid) {
-        int[][] solvedPuzzle = copy2dSquareArray(grid, Constants.TOTAL_WIDTH);
+    public int[] solveSudoku(final int[] grid) {
+        int[] solvedPuzzle = Arrays.copyOf(grid, Constants.TOTAL_WIDTH * Constants.TOTAL_WIDTH);
 
         boolean wasSolved = solveSudoku(solvedPuzzle, 0, 0);
 
@@ -36,7 +36,7 @@ public class InputModel implements IInputModel {
 
 
 
-    private boolean solveSudoku(int[][] grid, int i, int j) {
+    private boolean solveSudoku(int[] grid, int i, int j) {
         // Check if done
         if (j == Constants.TOTAL_WIDTH) {
             j = 0;
@@ -45,15 +45,16 @@ public class InputModel implements IInputModel {
             }
         }
 
+        final int index = i * Constants.TOTAL_WIDTH + j;
         // Don't touch filled squares
-        if (grid[i][j] != 0) {
+        if (grid[index] != 0) {
             return solveSudoku(grid, i, j + 1);
         }
 
         // Find a value that fits at i,j
         for (int value = 1; value <= Constants.TOTAL_WIDTH; value++) {
             if (isValid(grid, i, j, value)) {
-                grid[i][j] = value; // Try this value
+                grid[index] = value; // Try this value
                 if (solveSudoku(grid, i, j + 1)) {
                     return true;
                 }
@@ -61,21 +62,21 @@ public class InputModel implements IInputModel {
         }
 
         // There was no valid value for i,j, so backtrack
-        grid[i][j] = 0;
+        grid[index] = 0;
         return false;
     }
 
-    public boolean isValid(int[][] grid, int i, int j, int value) {
+    public boolean isValid(int[] grid, int i, int j, int value) {
         // Check row
         for (int x = 0; x < Constants.TOTAL_WIDTH; x++) {
-            if (grid[i][x] == value) {
+            if (grid[i * Constants.TOTAL_WIDTH + x] == value) {
                 return false;
             }
         }
 
         // Check column
         for (int y = 0; y < Constants.TOTAL_WIDTH; y++) {
-            if (grid[y][j] == value) {
+            if (grid[y * Constants.TOTAL_WIDTH + j] == value) {
                 return false;
             }
         }
@@ -85,23 +86,12 @@ public class InputModel implements IInputModel {
         int startJ = j - j % Constants.BLOCK_WIDTH;
         for (int y = startI; y < startI + Constants.BLOCK_WIDTH; y++) {
             for (int x = startJ; x < startJ + Constants.BLOCK_WIDTH; x++) {
-                if (grid[y][x] == value) {
+                if (grid[y * Constants.TOTAL_WIDTH + x] == value) {
                     return false;
                 }
             }
         }
 
         return true;
-    }
-
-    public int[][] copy2dSquareArray(int[][] array, int n) {
-        int[][] newArray = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                newArray[i][j] = array[i][j];
-            }
-        }
-
-        return newArray;
     }
 }

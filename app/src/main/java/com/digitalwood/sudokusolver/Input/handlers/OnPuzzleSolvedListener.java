@@ -5,6 +5,6 @@ package com.digitalwood.sudokusolver.input.handlers;
  * Copyright 2014
  */
 public interface OnPuzzleSolvedListener {
-    void onSuccess(int[][] grid);
+    void onSuccess(int[] grid);
     void onFailure();
 }

@@ -1,4 +1,4 @@
-package com.digitalwood.sudokusolver.unit;
+package com.digitalwood.sudokusolver.unit.input;
 
 import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
 import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
@@ -29,19 +29,19 @@ public class InputPresenterTest extends TestCase {
         arg.getValue().onClick();
 
         verify(mockView).getInputArray();
-        verify(mockModel).solveSudoku(any(int[][].class));
+        verify(mockModel).solveSudoku(any(int[].class));
     }
 
-    public void testModel_WhenPuzzleSolvedSuccessfully_ShowsSolution() {
+    public void testModel_WhenPuzzleSolvedSuccessfully_GoesToHintScreen() {
         InputPresenter presenter = getNewPresenter();
         ArgumentCaptor<OnPuzzleSolvedListener> arg = ArgumentCaptor.forClass(OnPuzzleSolvedListener.class);
-        int[][] solution = new int[9][9];
+        int[] solution = new int[81];
 
         verify(mockModel).whenPuzzleIsSolved(arg.capture());
         arg.getValue().onSuccess(solution);
 
         verify(mockView).setSolution(solution);
-        verify(mockView).showSolution();
+        verify(mockView).goToHintScreen();
     }
 
     public void testModel_WhenPuzzleCannotBeSolved_ShowsErrorMessage() {
@@ -53,6 +53,7 @@ public class InputPresenterTest extends TestCase {
 
         verify(mockView).showMessage(anyInt());
     }
+
 
 
     // Helper methods to make tests easier to read and write
