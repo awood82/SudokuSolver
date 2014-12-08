@@ -7,8 +7,6 @@ import com.digitalwood.sudokusolver.hint.handlers.OnRevealButtonClickedListener;
 import com.digitalwood.sudokusolver.hint.model.IHintModel;
 import com.digitalwood.sudokusolver.hint.presenter.HintPresenter;
 import com.digitalwood.sudokusolver.hint.view.IHintView;
-import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
-import com.digitalwood.sudokusolver.input.presenter.InputPresenter;
 
 import junit.framework.TestCase;
 

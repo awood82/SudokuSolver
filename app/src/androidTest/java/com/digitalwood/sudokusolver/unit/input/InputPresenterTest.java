@@ -1,10 +1,10 @@
 package com.digitalwood.sudokusolver.unit.input;
 
-import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
-import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
-import com.digitalwood.sudokusolver.input.model.IInputModel;
-import com.digitalwood.sudokusolver.input.presenter.InputPresenter;
-import com.digitalwood.sudokusolver.input.view.IInputView;
+import com.digitalwood.sudokusolver.inputs.handlers.OnPuzzleSolvedListener;
+import com.digitalwood.sudokusolver.inputs.handlers.OnSolveButtonClickedListener;
+import com.digitalwood.sudokusolver.inputs.model.IInputModel;
+import com.digitalwood.sudokusolver.inputs.presenter.InputPresenter;
+import com.digitalwood.sudokusolver.inputs.view.IInputView;
 
 import junit.framework.TestCase;
 

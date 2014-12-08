@@ -1,6 +1,6 @@
-package com.digitalwood.sudokusolver.input.model;
+package com.digitalwood.sudokusolver.inputs.model;
 
-import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
+import com.digitalwood.sudokusolver.inputs.handlers.OnPuzzleSolvedListener;
 
 /**
  * Created by Andrew on 11/28/2014.

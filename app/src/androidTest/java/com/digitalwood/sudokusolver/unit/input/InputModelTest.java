@@ -1,7 +1,7 @@
 package com.digitalwood.sudokusolver.unit.input;
 
 import com.digitalwood.sudokusolver.common.Constants;
-import com.digitalwood.sudokusolver.input.model.InputModel;
+import com.digitalwood.sudokusolver.inputs.model.InputModel;
 
 import junit.framework.TestCase;
 

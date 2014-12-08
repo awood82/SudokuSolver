@@ -1,7 +1,7 @@
-package com.digitalwood.sudokusolver.input.view;
+package com.digitalwood.sudokusolver.inputs.view;
 
 import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
-import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
+import com.digitalwood.sudokusolver.inputs.handlers.OnSolveButtonClickedListener;
 
 /**
  * Created by Andrew on 11/28/2014.

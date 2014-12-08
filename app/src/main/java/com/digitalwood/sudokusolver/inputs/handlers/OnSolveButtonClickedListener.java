@@ -1,4 +1,4 @@
-package com.digitalwood.sudokusolver.input.handlers;
+package com.digitalwood.sudokusolver.inputs.handlers;
 
 /**
  * Created by Andrew on 11/28/2014.
