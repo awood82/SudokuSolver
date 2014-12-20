@@ -4,6 +4,7 @@ import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnEditButtonClickedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnHideButtonClickedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnRevealButtonClickedListener;
+import com.digitalwood.sudokusolver.hint.handlers.OnSquareClickedListener;
 import com.digitalwood.sudokusolver.hint.model.IHintModel;
 import com.digitalwood.sudokusolver.hint.presenter.HintPresenter;
 import com.digitalwood.sudokusolver.hint.view.IHintView;
@@ -62,6 +63,17 @@ public class HintPresenterTest extends TestCase {
 
         verify(mockView).hideSolution();
     }
+
+    public void testView_WhenSquareClicked_RevealsTheSquare() {
+        HintPresenter presenter = getNewPresenter();
+        ArgumentCaptor<OnSquareClickedListener> arg = ArgumentCaptor.forClass(OnSquareClickedListener.class);
+
+        verify(mockView).whenSquareClicked(arg.capture());
+        arg.getValue().onClick(0, 1);
+
+        verify(mockView).revealSquare(0, 1);
+    }
+
 
     // Helper methods to make tests easier to read and write
     private HintPresenter getNewPresenter() {

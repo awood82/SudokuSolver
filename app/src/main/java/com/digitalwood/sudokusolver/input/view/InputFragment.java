@@ -185,7 +185,8 @@ public class InputFragment extends Fragment implements IInputView {
         Toast.makeText(
                 getActivity().getApplicationContext(),
                 getResources().getText(resId),
-                Toast.LENGTH_SHORT);
+                Toast.LENGTH_SHORT)
+                .show();
     }
 
     @Override

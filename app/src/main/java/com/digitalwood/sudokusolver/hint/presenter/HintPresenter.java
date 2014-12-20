@@ -5,6 +5,7 @@ import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnEditButtonClickedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnHideButtonClickedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnRevealButtonClickedListener;
+import com.digitalwood.sudokusolver.hint.handlers.OnSquareClickedListener;
 import com.digitalwood.sudokusolver.hint.model.IHintModel;
 import com.digitalwood.sudokusolver.hint.view.IHintView;
 
@@ -50,6 +51,13 @@ public class HintPresenter {
             @Override
             public void onClick() {
                 mView.hideSolution();
+            }
+        });
+
+        mView.whenSquareClicked(new OnSquareClickedListener() {
+            @Override
+            public void onClick(int i, int j) {
+                mView.revealSquare(i, j);
             }
         });
     }

@@ -16,6 +16,7 @@ import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnEditButtonClickedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnHideButtonClickedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnRevealButtonClickedListener;
+import com.digitalwood.sudokusolver.hint.handlers.OnSquareClickedListener;
 import com.digitalwood.sudokusolver.hint.model.HintModel;
 import com.digitalwood.sudokusolver.hint.presenter.HintPresenter;
 
@@ -29,6 +30,7 @@ public class HintFragment extends Fragment implements IHintView {
     private OnEditButtonClickedListener mOnEditButtonClickedListener;
     private OnRevealButtonClickedListener mOnRevealButtonClickedListener;
     private OnHideButtonClickedListener mOnHideButtonClickedListener;
+    private OnSquareClickedListener mOnSquareClickedListener;
 
     private GridLayout mHintGrid;
     private Button mRevealButton;
@@ -67,10 +69,12 @@ public class HintFragment extends Fragment implements IHintView {
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
                 final TextView hintText = (TextView) inflater.inflate(R.layout.hinttext_box, container, false);
+                final int ii = i;
+                final int jj = j;
                 hintText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // TODO: Reveal
+                        mOnSquareClickedListener.onClick(ii, jj);
                     }
                 });
                 mHintGrid.addView(hintText);
@@ -133,6 +137,11 @@ public class HintFragment extends Fragment implements IHintView {
     }
 
     @Override
+    public void whenSquareClicked(OnSquareClickedListener listener) {
+        mOnSquareClickedListener = listener;
+    }
+
+    @Override
     public void goToInputScreen() {
         getActivity().finish();
     }
@@ -141,20 +150,25 @@ public class HintFragment extends Fragment implements IHintView {
     public void revealSolution() {
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
-                final int index = i * Constants.TOTAL_WIDTH + j;
-                final TextView hintText = (TextView) mHintGrid.getChildAt(index);
-                if (mInputArray[index] == 0) {
-                    hintText.setTextColor(getResources().getColor(R.color.hint));
-                    hintText.setText(String.valueOf(mSolution[index]));
-                } else {
-                    hintText.setTextColor(getResources().getColor(R.color.input));
-                    hintText.setText(String.valueOf(mInputArray[index]));
-                }
+                revealSquare(i, j);
             }
         }
 
         mRevealButton.setVisibility(View.INVISIBLE);
         mHideButton.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void revealSquare(int i, int j) {
+        final int index = i * Constants.TOTAL_WIDTH + j;
+        final TextView hintText = (TextView) mHintGrid.getChildAt(index);
+        if (mInputArray[index] == 0) {
+            hintText.setTextColor(getResources().getColor(R.color.hint));
+            hintText.setText(String.valueOf(mSolution[index]));
+        } else {
+            hintText.setTextColor(getResources().getColor(R.color.input));
+            hintText.setText(String.valueOf(mInputArray[index]));
+        }
     }
 
     @Override
