@@ -62,6 +62,7 @@ public class InputFragment extends Fragment implements IInputView {
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
                 final EditText editText = (EditText) inflater.inflate(R.layout.edittext_box, container, false);
+                mInputGrid.addView(editText);
                 editText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -81,8 +82,7 @@ public class InputFragment extends Fragment implements IInputView {
                     int s;
 
                     @Override
-                    public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-                    }
+                    public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {                    }
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
@@ -100,7 +100,6 @@ public class InputFragment extends Fragment implements IInputView {
                         }
                     }
                 });
-                mInputGrid.addView(editText);
             }
         }
 
@@ -165,7 +164,7 @@ public class InputFragment extends Fragment implements IInputView {
         mSolution = grid;
     }
 
-    @Override
+/*    @Override
     public void showSolution() {
         int[] inputs = getInputArray();
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
@@ -178,7 +177,7 @@ public class InputFragment extends Fragment implements IInputView {
                 }
             }
         }
-    }
+    }*/
 
     @Override
     public void showMessage(int resId) {

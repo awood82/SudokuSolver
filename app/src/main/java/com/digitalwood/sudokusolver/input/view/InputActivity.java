@@ -17,9 +17,11 @@ public class InputActivity extends ActionBarActivity {
         setContentView(R.layout.activity_fullscreen);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, InputFragment.newInstance())
-                .commit();
+        if (fragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragmentContainer, InputFragment.newInstance())
+                    .commit();
+        }
     }
 
 

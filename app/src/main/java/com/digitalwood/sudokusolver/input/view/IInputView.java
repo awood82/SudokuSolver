@@ -18,7 +18,7 @@ public interface IInputView {
 
     void setSolution(int[] grid);
 
-    void showSolution();
+//    void showSolution();
 
     void showMessage(int resId);
 

@@ -25,7 +25,7 @@ public class InputPresenter {
     }
 
     private void addViewListeners() {
-        mView.whenActivityCreated(new OnActivityCreatedListener() {
+/*        mView.whenActivityCreated(new OnActivityCreatedListener() {
             @Override
             public void onActivityCreated() {
                 final int[] wikiPuzzle = {
@@ -41,19 +41,9 @@ public class InputPresenter {
                         0,0,0, 4,1,9, 0,0,5,
                         0,0,0, 0,8,0, 0,7,9
                 };
-//                new Thread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            Thread.sleep(500);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
                 mView.setInputArray(wikiPuzzle);
-//                    }
-//                }).start();
             }
-        });
+        });*/
 
         mView.whenSolveButtonClicked(new OnSolveButtonClickedListener() {
             @Override
@@ -69,7 +59,6 @@ public class InputPresenter {
             @Override
             public void onSuccess(int[] grid) {
                 mView.setSolution(grid);
-                //mView.showSolution();
                 mView.goToHintScreen();
             }
 

@@ -25,9 +25,11 @@ public class HintActivity extends ActionBarActivity {
         int[] solution = getIntent().getIntArrayExtra(EXTRA_SOLUTION);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.fragmentContainer, HintFragment.newInstance(inputs, solution))
-                .commit();
+        if (fragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragmentContainer, HintFragment.newInstance(inputs, solution))
+                    .commit();
+        }
     }
 
 }

@@ -10,7 +10,7 @@
 
     <string name="hint_title">Click squares for hints</string>
     <string name="hint_button_edit">Edit</string>
-    <string name="hint_button_reveal">Reveal</string>
-    <string name="hint_button_hide">Hide</string>
+    <string name="hint_button_reveal">Reveal All</string>
+    <string name="hint_button_hide">Hide All</string>
 
 </resources>

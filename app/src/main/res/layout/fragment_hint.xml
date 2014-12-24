@@ -7,6 +7,7 @@
         android:id="@+id/hint_grid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:columnCount="9"
         android:rowCount="9">
     </GridLayout>
@@ -16,6 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/hint_grid"
+        android:layout_alignLeft="@id/hint_grid"
         android:text="@string/hint_button_edit"/>
 
     <Button
