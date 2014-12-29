@@ -94,6 +94,14 @@ public class SudokuGridLayout extends ViewGroup {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        // Draw each editable box
+        for (int i = 0; i < mNumRows; i++) {
+            for (int j = 0; j < mNumRows; j++) {
+                View box = getChild(i, j);
+                box.draw(canvas);
+            }
+        }
+
         // Paint filled rectangle
         Paint bgPaint = new Paint();
         bgPaint.setColor(mBackgroundColor);
@@ -105,14 +113,6 @@ public class SudokuGridLayout extends ViewGroup {
                 botRight.getRight() + BORDER_SIZE_PX,
                 botRight.getBottom() + BORDER_SIZE_PX,
                 bgPaint);
-
-        // Draw each editable box
-        for (int i = 0; i < mNumRows; i++) {
-            for (int j = 0; j < mNumRows; j++) {
-                View box = getChild(i, j);
-                box.draw(canvas);
-            }
-        }
     }
 
     private View getChild(int i, int j) {
