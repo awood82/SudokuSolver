@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.digitalwood.sudokusolver.R;
 import com.digitalwood.sudokusolver.common.Constants;
 import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
+import com.digitalwood.sudokusolver.common.view.SudokuGridLayout;
 import com.digitalwood.sudokusolver.hint.handlers.OnEditButtonClickedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnHideButtonClickedListener;
 import com.digitalwood.sudokusolver.hint.handlers.OnRevealButtonClickedListener;
@@ -32,7 +33,7 @@ public class HintFragment extends Fragment implements IHintView {
     private OnHideButtonClickedListener mOnHideButtonClickedListener;
     private OnSquareClickedListener mOnSquareClickedListener;
 
-    private GridLayout mHintGrid;
+    private SudokuGridLayout mHintGrid;
     private Button mRevealButton;
     private Button mHideButton;
     private int[] mInputArray;
@@ -65,7 +66,9 @@ public class HintFragment extends Fragment implements IHintView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_hint, container, false);
 
-        mHintGrid = (GridLayout) rootView.findViewById(R.id.hint_grid);
+        mHintGrid = (SudokuGridLayout) rootView.findViewById(R.id.hint_grid);
+        mHintGrid.setRowCount(Constants.TOTAL_WIDTH);
+        mHintGrid.setBackgroundColor(getResources().getColor(R.color.box_outline));
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
                 final TextView hintText = (TextView) inflater.inflate(R.layout.hinttext_box, container, false);

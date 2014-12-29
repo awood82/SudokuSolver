@@ -12,11 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.Toast;
 
 import com.digitalwood.sudokusolver.R;
 import com.digitalwood.sudokusolver.common.Constants;
+import com.digitalwood.sudokusolver.common.view.SudokuGridLayout;
 import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
 import com.digitalwood.sudokusolver.hint.view.HintActivity;
 import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
@@ -32,7 +32,7 @@ public class InputFragment extends Fragment implements IInputView {
     private static int WIDTH_DP = 30;
     private static int HEIGHT_DP = 30;
     private static int BORDER_DP = 2;
-    private GridLayout mInputGrid;
+    private SudokuGridLayout mInputGrid;
     private int[] mSolution;
     private OnActivityCreatedListener mOnActivityCreatedListener;
     private OnSolveButtonClickedListener mOnSolveButtonClickedListener;
@@ -58,7 +58,9 @@ public class InputFragment extends Fragment implements IInputView {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_input, container, false);
 
-        mInputGrid = (GridLayout) rootView.findViewById(R.id.input_grid);
+        mInputGrid = (SudokuGridLayout) rootView.findViewById(R.id.input_grid);
+        mInputGrid.setRowCount(Constants.TOTAL_WIDTH);
+        mInputGrid.setBackgroundColor(getResources().getColor(R.color.box_outline));
         for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
             for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
                 final EditText editText = (EditText) inflater.inflate(R.layout.edittext_box, container, false);
