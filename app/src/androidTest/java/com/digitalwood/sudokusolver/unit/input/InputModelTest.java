@@ -1,15 +1,20 @@
 package com.digitalwood.sudokusolver.unit.input;
 
 import com.digitalwood.sudokusolver.common.Constants;
+import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
 import com.digitalwood.sudokusolver.input.model.InputModel;
 
 import junit.framework.TestCase;
+
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Andrew on 11/28/2014.
  * Copyright 2014
  */
 public class InputModelTest extends TestCase {
+
+    public static final int MAX_SOLVE_TIME = 3000;
 
     public void testSolve_CompleteExcept00_SolvesCorrectly() {
         InputModel model = new InputModel();
@@ -25,12 +30,13 @@ public class InputModelTest extends TestCase {
     public void testSolve_CompleteExcept44_SolvesCorrectly() {
         InputModel model = new InputModel();
         int[] nearlySolvedPuzzle = getEasySolvedPuzzle();
-        int expectedValue = nearlySolvedPuzzle[40];
-        nearlySolvedPuzzle[40] = 0; // Clear one field
+        final int cellIndex = 4 * Constants.TOTAL_WIDTH + 4;
+        int expectedValue = nearlySolvedPuzzle[cellIndex];
+        nearlySolvedPuzzle[cellIndex] = 0; // Clear one field
 
         int[] solvedPuzzle = model.solveSudoku(nearlySolvedPuzzle);
 
-        assertEquals(expectedValue, solvedPuzzle[40]);
+        assertEquals(expectedValue, solvedPuzzle[cellIndex]);
     }
 
     public void testSolve_WikipediaPuzzle_SolvesCorrectly() {
@@ -64,12 +70,38 @@ public class InputModelTest extends TestCase {
 
         int[] result = model.solveSudoku(wikiPuzzle);
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
+        for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
+            for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
                 int index = i * Constants.TOTAL_WIDTH + j;
                 assertEquals(solvedWikiPuzzle[index], result[index]);
             }
         }
+    }
+
+    public void testSolve_SameValuesInFirstRow_FailsQuickly() {
+        final InputModel model = new InputModel();
+        final int[] invalidPuzzle = new int[Constants.TOTAL_WIDTH * Constants.TOTAL_WIDTH];
+        for (int i = 0; i < Constants.BLOCK_WIDTH; i++) {
+            invalidPuzzle[i] = 1;
+        }
+        OnPuzzleSolvedListener mockListener = mock(OnPuzzleSolvedListener.class);
+        model.whenPuzzleIsSolved(mockListener);
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(MAX_SOLVE_TIME);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                fail("Test timed out"); // Give it only a few seconds
+            }
+        });
+
+        t.start();
+        int[] solvedPuzzle = model.solveSudoku(invalidPuzzle);
+
+        verify(mockListener).onFailure();
     }
 
 

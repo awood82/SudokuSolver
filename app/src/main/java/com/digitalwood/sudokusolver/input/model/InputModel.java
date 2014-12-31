@@ -1,5 +1,7 @@
 package com.digitalwood.sudokusolver.input.model;
 
+import android.util.Log;
+
 import com.digitalwood.sudokusolver.common.Constants;
 import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
 
@@ -21,7 +23,7 @@ public class InputModel implements IInputModel {
     public int[] solveSudoku(final int[] grid) {
         int[] solvedPuzzle = Arrays.copyOf(grid, Constants.TOTAL_WIDTH * Constants.TOTAL_WIDTH);
 
-        boolean wasSolved = solveSudoku(solvedPuzzle, 0, 0);
+        boolean wasSolved = validateSudoku(solvedPuzzle) ? solveSudoku(solvedPuzzle, 0, 0) : false;
 
         if (mOnPuzzleSolvedListener != null) {
             if (wasSolved) {
@@ -34,7 +36,19 @@ public class InputModel implements IInputModel {
         return solvedPuzzle;
     }
 
-
+    private boolean validateSudoku(int[] grid) {
+        for (int i = 0; i < Constants.TOTAL_WIDTH; i++) {
+            for (int j = 0; j < Constants.TOTAL_WIDTH; j++) {
+                int value = grid[i * Constants.TOTAL_WIDTH + j];
+                if (value != 0) {
+                    if (!isValid(grid, i, j, value)) {
+                        return false;
+                    }
+                }
+           }
+        }
+        return true;
+    }
 
     private boolean solveSudoku(int[] grid, int i, int j) {
         // Check if done
