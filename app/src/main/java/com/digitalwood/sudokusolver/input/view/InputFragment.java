@@ -1,15 +1,18 @@
 package com.digitalwood.sudokusolver.input.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import com.digitalwood.sudokusolver.common.Constants;
 import com.digitalwood.sudokusolver.common.view.SudokuGridLayout;
 import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
 import com.digitalwood.sudokusolver.hint.view.HintActivity;
+import com.digitalwood.sudokusolver.input.handlers.OnCellUpdatedListener;
 import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
 import com.digitalwood.sudokusolver.input.model.InputModel;
 import com.digitalwood.sudokusolver.input.presenter.InputPresenter;
@@ -36,6 +40,7 @@ public class InputFragment extends Fragment implements IInputView {
     private int[] mSolution;
     private OnActivityCreatedListener mOnActivityCreatedListener;
     private OnSolveButtonClickedListener mOnSolveButtonClickedListener;
+    private OnCellUpdatedListener mOnCellUpdatedListener;
 
     public static InputFragment newInstance() {
         InputFragment fragment = new InputFragment();
@@ -100,6 +105,12 @@ public class InputFragment extends Fragment implements IInputView {
                                 editable.delete(0, 1);
                             }
                         }
+
+                        if (editable.toString().equals("0")) {
+                            editable.clear();
+                        }
+
+                        mOnCellUpdatedListener.cellUpdated();
                     }
                 });
             }
@@ -132,6 +143,11 @@ public class InputFragment extends Fragment implements IInputView {
     @Override
     public void whenSolveButtonClicked(OnSolveButtonClickedListener listener) {
         mOnSolveButtonClickedListener = listener;
+    }
+
+    @Override
+    public void whenCellUpdated(OnCellUpdatedListener listener) {
+        mOnCellUpdatedListener = listener;
     }
 
     @Override
@@ -188,6 +204,12 @@ public class InputFragment extends Fragment implements IInputView {
                 getResources().getText(resId),
                 Toast.LENGTH_SHORT)
                 .show();
+    }
+
+    public void hideKeyboard() {
+        // Automatically hide the keyboard
+        InputMethodManager mgr = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        mgr.hideSoftInputFromWindow(mInputGrid.getWindowToken(), 0);
     }
 
     @Override

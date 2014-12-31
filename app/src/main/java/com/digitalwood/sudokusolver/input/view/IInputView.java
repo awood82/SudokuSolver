@@ -1,6 +1,7 @@
 package com.digitalwood.sudokusolver.input.view;
 
 import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
+import com.digitalwood.sudokusolver.input.handlers.OnCellUpdatedListener;
 import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
 
 /**
@@ -12,6 +13,8 @@ public interface IInputView {
 
     void whenSolveButtonClicked(OnSolveButtonClickedListener listener);
 
+    void whenCellUpdated(OnCellUpdatedListener listener);
+
     void setInputArray(int[] inputs);
 
     int[] getInputArray();
@@ -21,6 +24,8 @@ public interface IInputView {
 //    void showSolution();
 
     void showMessage(int resId);
+
+    void hideKeyboard();
 
     void goToHintScreen();
 }

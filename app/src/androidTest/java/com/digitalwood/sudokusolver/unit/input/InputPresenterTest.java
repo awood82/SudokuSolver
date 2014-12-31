@@ -1,5 +1,6 @@
 package com.digitalwood.sudokusolver.unit.input;
 
+import com.digitalwood.sudokusolver.input.handlers.OnCellUpdatedListener;
 import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
 import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
 import com.digitalwood.sudokusolver.input.model.IInputModel;
@@ -30,6 +31,16 @@ public class InputPresenterTest extends TestCase {
 
         verify(mockView).getInputArray();
         verify(mockModel).solveSudoku(any(int[].class));
+    }
+
+    public void testView_WhenCellUpdated_HidesKeyboard() {
+        InputPresenter presenter = getNewPresenter();
+        ArgumentCaptor<OnCellUpdatedListener> arg = ArgumentCaptor.forClass(OnCellUpdatedListener.class);
+
+        verify(mockView).whenCellUpdated(arg.capture());
+        arg.getValue().cellUpdated();
+
+        verify(mockView).hideKeyboard();
     }
 
     public void testModel_WhenPuzzleSolvedSuccessfully_GoesToHintScreen() {

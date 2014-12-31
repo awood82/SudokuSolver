@@ -2,6 +2,7 @@ package com.digitalwood.sudokusolver.input.presenter;
 
 import com.digitalwood.sudokusolver.R;
 import com.digitalwood.sudokusolver.common.handlers.OnActivityCreatedListener;
+import com.digitalwood.sudokusolver.input.handlers.OnCellUpdatedListener;
 import com.digitalwood.sudokusolver.input.handlers.OnPuzzleSolvedListener;
 import com.digitalwood.sudokusolver.input.handlers.OnSolveButtonClickedListener;
 import com.digitalwood.sudokusolver.input.model.IInputModel;
@@ -50,6 +51,13 @@ public class InputPresenter {
             public void onClick() {
                 int[] inputs = mView.getInputArray();
                 mModel.solveSudoku(inputs);
+            }
+        });
+
+        mView.whenCellUpdated(new OnCellUpdatedListener() {
+            @Override
+            public void cellUpdated() {
+                mView.hideKeyboard();
             }
         });
     }
